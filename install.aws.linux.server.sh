@@ -11,7 +11,7 @@ sudo apt-get upgrade
 ## Install System Software
 
 # Install aws cli
-sudo apt-get install awscli
+sudo apt-get install -y awscli
 
 # jq json parser
 sudo apt-get install -y jq
