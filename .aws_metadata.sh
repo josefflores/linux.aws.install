@@ -26,5 +26,5 @@ export META_SEC_GROUP=$(curl -s ${URL_METADATA}security-groups)
 AWS_TAGS = $(aws ec2 describe-tags --filters Name=resource-id,Values=${META_INSTANCE_ID} | jq '[.Tags[] | "\(.Key)=\(.Value)"] | .[]' | $ sed 's/\"//g')
 for prop in AWS_TAGS
 do
-    export $($prop)
+    export $($prop | sed -e 's/ /_/g' | sed ':a;N;$!ba;s/\n/ /g')
 done
