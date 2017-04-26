@@ -6,7 +6,6 @@
 # Get Metadata variables except for
 #   block-device-mapping/, metrics/, network/, placement/, public-keys/
 export URL_METADATA=http://169.254.169.254/latest/meta-data/
-
 export META_AMI_ID=$(curl -s ${URL_METADATA}ami-id)
 export META_AMI_LAUNCH_INDEX=$(curl -s ${URL_METADATA}ami-launch-index)
 export META_AMI_MANIFEST_PATH=$(curl -s ${URL_METADATA}ami-manifest-path)
