@@ -23,8 +23,7 @@ export META_RESERVATION_ID=$(curl -s ${URL_METADATA}reservation-id)
 export META_SEC_GROUP=$(curl -s ${URL_METADATA}security-groups)
 
 # Export tags to environment variables
-AWS_TAGS = $(aws ec2 describe-tags --filters Name=resource-id,Values=${META_INSTANCE_ID} | jq '[.Tags[] | "\(.Key)=\(.Value)"] | .[]' | $ sed 's/\"//g')
-for prop in AWS_TAGS
+for prop in $(aws ec2 describe-tags --filters Name=resource-id,Values=${META_INSTANCE_ID} | jq '[.Tags[] | "\(.Key)=\(.Value)"] | .[]' | $ sed 's/\"//g')
 do
-    export $($prop | sed -e 's/ /_/g' | sed 's/ /\n/g')
+    export -s $($prop | sed -e 's/ /_/g' | sed 's/ /\n/g')
 done
