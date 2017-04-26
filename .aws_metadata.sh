@@ -25,13 +25,13 @@ export META_SEC_GROUP=$(curl -s ${URL_METADATA}security-groups)
 # Export tags to environment variables
 AWS_TAGS=$(aws ec2 describe-tags --filters Name=resource-id,Values=${META_INSTANCE_ID})
 # Get single list of key value pairs
-AWS_TAGS=$($AWS_TAGS | jq '[.Tags[] | "\(.Key)=\(.Value)"] | .[]')
+AWS_TAGS=$(${AWS_TAGS} | jq '[.Tags[] | "\(.Key)=\(.Value)"] | .[]')
 # Strip quotes
-AWS_TAGS=$($AWS_TAGS | sed 's/\"//g')
+AWS_TAGS=$(${AWS_TAGS} | sed 's/\"//g')
 # Strip extra whitespace characters
-AWS_TAGS=$($AWS_TAGS | sed 's/[:space:]+/ /g')
+AWS_TAGS=$(${AWS_TAGS} | sed 's/[:space:]+/ /g')
 
-for prop in $AWS_TAGS
+for prop in ${AWS_TAGS}
 do
     export $prop
 done
