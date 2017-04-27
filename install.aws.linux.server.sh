@@ -27,6 +27,10 @@ printf " [INSTALL] Node.js 7\n"
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get -qq install -y nodejs
 
+# NPM
+printf " [INSTALL] NPM (Global) - Express\n"
+npm install express -g
+
 ## Add environment variables
 TARGET=$HOME/github/linux.aws.install/.aws_metadata.sh
 if grep -Fxq ". ${TARGET}" ~/.bashrc
