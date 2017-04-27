@@ -2,7 +2,7 @@
 
 ### AWS NODE SERVER INSTALL SCRIPT
 ######
-printf " AWS NODE SERVER INSTALL SCRIPT\n"
+printf "\n AWS NODE SERVER INSTALL SCRIPT\n\n"
 
 ## Update base
 
@@ -21,7 +21,7 @@ printf " [INSTALL] jq\n"
 sudo apt-get -qq install -y jq
 
 # Install NodeJS
-printf "  [INSTALL] Node.js 7\n"
+printf " [INSTALL] Node.js 7\n"
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get -qq install -y nodejs
 
@@ -36,4 +36,4 @@ else
     echo . $TARGET >> ~/.bashrc
 fi
 
-printf "Done...\n"
+printf "\n Done...\n\n"
