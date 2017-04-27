@@ -23,6 +23,7 @@ printf " [INSTALL] jq\n"
 apt-get -qq install -y jq
 
 # Jenkins
+printf " [INSTALL] Jenkins\n"
 wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 apt-get -qq update -y
