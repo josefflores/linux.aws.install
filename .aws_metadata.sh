@@ -31,7 +31,7 @@ AWS_TAGS=$(${AWS_TAGS} | sed 's/\"//g')
 # Strip extra whitespace characters
 AWS_TAGS=$(${AWS_TAGS} | sed 's/[:space:]+/ /g')
 
-for prop in ${AWS_TAGS}
+for prop in $AWS_TAGS
 do
     export $prop
 done
