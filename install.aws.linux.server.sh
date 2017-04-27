@@ -7,25 +7,25 @@ printf "\n AWS NODE SERVER INSTALL SCRIPT\n\n"
 ## Update base
 
 printf " [UPDATE]  Ubuntu\n"
-sudo apt-get -qq update
+apt-get -qq update -y
 
 printf " [UPGRADE] Ubuntu\n"
-sudo apt-get -qq upgrade
+apt-get -qq upgrade -y
 
 ## Install System Software
 
 # Install aws cli
 printf " [INSTALL] AWS-CLI\n"
-sudo apt-get -qq install -y awscli
+apt-get -qq install -y awscli
 
 # jq json parser
 printf " [INSTALL] jq\n"
-sudo apt-get -qq install -y jq
+apt-get -qq install -y jq
 
 # Install NodeJS
 printf " [INSTALL] Node.js 7\n"
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-sudo apt-get -qq install -y nodejs
+apt-get -qq install -y nodejs
 
 # NPM
 printf " [INSTALL] NPM (Global) - Express\n"
