@@ -6,9 +6,11 @@ printf "\n AWS NODE SERVER INSTALL SCRIPT\n\n"
 
 ## Update base
 
-sudo apt-get update
+printf " [UPDATE] Ubuntu\n"
+sudo apt-get -qq update
 
-# sudo apt-get upgrade
+# printf " [UPGRADE] Ubuntu\n"
+# sudo apt-get -qq upgrade
 
 ## Install System Software
 
