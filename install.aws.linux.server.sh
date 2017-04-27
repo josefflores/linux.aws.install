@@ -22,7 +22,13 @@ apt-get -qq install -y awscli
 printf " [INSTALL] jq\n"
 apt-get -qq install -y jq
 
-# Install NodeJS
+# Jenkins
+wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+apt-get -qq update -y
+apt-get -qq install -y jenkins
+
+# NodeJS
 printf " [INSTALL] Node.js 7\n"
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 apt-get -qq install -y nodejs
