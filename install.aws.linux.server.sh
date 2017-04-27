@@ -27,6 +27,7 @@ sudo apt-get install -y nodejs
 ## Add environment variables
 TARGET=$HOME/github/linux.aws.install/.aws_metadata.sh
 if grep -Fxq ". ${TARGET}" ~/.bashrc
+then
     printf " [INSTALL] AWS Environment variables\n"
     echo . $TARGET >> ~/.bashrc
 else
