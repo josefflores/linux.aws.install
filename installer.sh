@@ -46,7 +46,7 @@ apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
-sudo cp .system-sudo-users /etc/sudoers/system-sudo-users
+sudo cp .system-sudo-users /etc/sudoers.d/system-sudo-users
 
 # ADD TLS
 sudo /etc/init.d/jenkins stop
