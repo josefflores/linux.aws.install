@@ -47,6 +47,7 @@ apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
 #sudo cp .system-sudo-users /etc/sudoers.d/system-sudo-users
+
 # nodejs plugin
 
 # ADD TLS
