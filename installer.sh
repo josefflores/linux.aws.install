@@ -11,8 +11,8 @@ AppendToFile(){
         printf " [SKIP]    $3.\n"
     else
         printf " [APPEND]  $3.\n"
-        echo "# $3" | sudo tee -a $1
-        echo "$2" | sudo tee -a $1
+        echo "# $3" | tee -a $1
+        echo "$2" | tee -a $1
     fi
 }
 
@@ -26,7 +26,7 @@ GrantGroup(){
         printf " [SKIP]    $1 $2.\n"
     else
         printf " [GRANT]   $1 $2.\n"
-        sudo usermod -aG $2 $1
+        usermod -aG $2 $1
     fi
 }
 
@@ -54,36 +54,34 @@ apt-get -qq install -y jq
 
 # Jenkins
 printf " [INSTALL] Jenkins\n"
-wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
+sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
-# GrantGroup jenkins sudo
-# sudo cp .jenkins /etc/sudoers.d/jenkins
-# sudo chmod 440 /etc/sudoers.d/jenkins
-
-# ADD TLS
 if id -u $USER -eq 1000
 then
-    sudo /etc/init.d/jenkins stop
-    sleep 2
+    # GrantGroup jenkins sudo
+    cp .jenkins /etc/sudoers.d/jenkins
+    chmod 440 /etc/sudoers.d/jenkins
+    /etc/init.d/jenkins stop
 fi
 
+# ADD TLS
 COMMENT="Jenkins TLS enabled"
 LINE="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
 AppendToFile /etc/default/jenkins $LINE $COMMENT
 
 if id -u $USER -eq 1000
 then
-    sudo /etc/init.d/jenkins start
+    /etc/init.d/jenkins start
     sleep 2
 fi
 
 # NodeJS
 printf " [INSTALL] Node.js 7\n"
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_7.x | bash -
 apt-get -qq install -y nodejs
 
 # NPM
