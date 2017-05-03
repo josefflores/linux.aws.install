@@ -16,6 +16,20 @@ AppendToFile(){
     fi
 }
 
+# Grants group access to a user
+#
+# $1 User.
+# $2 Group name.
+GrantGroup(){
+    if groups $1 | grep -c sudo
+    then
+        printf " [SKIP]    $1 $2.\n"
+    else
+        printf " [GRANT]   $1 $2.\n"
+        sudo usermod -aG $2 $1
+    fi
+}
+
 ### AWS NODE SERVER INSTALL SCRIPT
 ######
 printf "\n AWS NODE SERVER INSTALL SCRIPT\n\n"
@@ -46,9 +60,7 @@ apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
-#sudo cp .system-sudo-users /etc/sudoers.d/system-sudo-users
-
-# nodejs plugin
+GrantGroup jenkins sudo
 
 # ADD TLS
 sudo /etc/init.d/jenkins stop
