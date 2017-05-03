@@ -30,18 +30,16 @@ apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # ADD TLS
-PROPERTY="-Dmail.smtp.starttls.enable"
-VALUE="true"
+TEST="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
 
 TARGET=/etc/default/jenkins
-TEST="JAVA_ARGS=\"${JAVA_ARGS} ${PROPERTY}=${VALUE}\""
 if grep -Fxq "${TEST}" TARGET
 then
     printf " [SKIP]    Jenkins TLS enabled config in place.\n"
 else
     printf " [CONFIG]  Jenkins TLS enabled.\n"
     echo "# Jenkins TLS enabled" | sudo tee -a TARGET
-    echo "JAVA_ARGS=\"\${JAVA_ARGS} ${PROPERTY}=${VALUE}\"" | sudo tee -a TARGET
+    echo "${TEST}" | sudo tee -a TARGET
 fi
 
 # NodeJS
