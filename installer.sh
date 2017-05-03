@@ -32,7 +32,7 @@ GrantGroup(){
 
 ### AWS NODE SERVER INSTALL SCRIPT
 ######
-USER_ID=id -u $USER
+USER_ID="$(id -u $USER)"
 printf "\n AWS NODE SERVER INSTALL SCRIPT\n"
 printf "Running as $USER::$USER_ID\n\n"
 
