@@ -34,14 +34,13 @@ PROPERTY="-Dmail.smtp.starttls.enable"
 VALUE="true"
 
 TARGET=/etc/default/jenkins
-CONFIG="JAVA_ARGS=\"${JAVA_ARGS} ${PROPERTY}=${VALUE}\""
-if grep -Fxq "${CONFIG}" TARGET
+TEST="JAVA_ARGS=\"${JAVA_ARGS} ${PROPERTY}=${VALUE}\""
+if grep -Fxq "${TEST}" TARGET
 then
     printf " [SKIP]    Jenkins TLS enabled config in place.\n"
 else
     printf " [CONFIG]  Jenkins TLS enabled.\n"
-    echo "# Jenkins TLS enabled" | sudo tee -a TARGET
-    echo CONFIG | sudo tee -a TARGET
+    % echo "# Jenkins TLS enabled\n${TEST}" | sudo tee -a TARGET
 fi
 
 # NodeJS
@@ -54,14 +53,14 @@ printf " [INSTALL] NPM (Global) - Express\n"
 npm install express -g
 
 ## Add environment variables
-TARGET=$HOME/github/linux.aws.install/.aws_metadata.sh
-if grep -Fxq ". ${TARGET}" ~/.bashrc
+TEST=". $HOME/github/linux.aws.install/.aws_metadata.sh"
+TARGET=~/.bashrc
+if grep -Fxq "${TEST}" TARGET
 then
     printf " [SKIP]    AWS Environment variables previously added.\n"
 else
     printf " [INSTALL] AWS Environment variables\n"
-    echo "# IMPORT AWS VARIABLES" >> ~/.bashrc
-    echo . $TARGET >> ~/.bashrc
+    % echo "# IMPORT AWS VARIABLES\n${TEST}" | sudo tee -a TARGET
 fi
 
 printf "\n Done...\n\n"
