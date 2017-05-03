@@ -40,7 +40,8 @@ then
     printf " [SKIP]    Jenkins TLS enabled config in place.\n"
 else
     printf " [CONFIG]  Jenkins TLS enabled.\n"
-    echo "# Jenkins TLS enabled\n${TEST}" | sudo tee -a TARGET
+    echo "# Jenkins TLS enabled" | sudo tee -a TARGET
+    echo "JAVA_ARGS=\"\${JAVA_ARGS} ${PROPERTY}=${VALUE}\"" | sudo tee -a TARGET
 fi
 
 # NodeJS
@@ -60,7 +61,8 @@ then
     printf " [SKIP]    AWS Environment variables previously added.\n"
 else
     printf " [INSTALL] AWS Environment variables\n"
-    echo "# IMPORT AWS VARIABLES\n${TEST}" | sudo tee -a TARGET
+    echo "# IMPORT AWS VARIABLES" | sudo tee -a TARGET
+    echo "${TEST}" | sudo tee -a TARGET
 fi
 
 printf "\n Done...\n\n"
