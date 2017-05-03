@@ -29,6 +29,23 @@ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sour
 apt-get -qq update -y
 apt-get -qq install -y jenkins
 
+# ADD TLS
+
+TARGET="/etc/default/jenkins"
+
+PROPERTY="-Dmail.smtp.starttls.enable"
+VALUE="true"
+CONFIG="JAVA_ARGS=\"${JAVA_ARGS} ${PROPERTY}=${VALUE}\""
+
+if grep -Fxq CONFIG TARGET
+then
+    printf " [SKIP]    Jenkins TLS enabled config in place.\n"
+else
+    printf " [CONFIG]  Jenkins TLS enabled.\n"
+    echo "# Jenkins TLS enabled" >> TARGET
+    echo CONFIG >> TARGET
+fi
+
 # NodeJS
 printf " [INSTALL] Node.js 7\n"
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
