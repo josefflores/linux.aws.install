@@ -32,7 +32,9 @@ GrantGroup(){
 
 ### AWS NODE SERVER INSTALL SCRIPT
 ######
-printf "\n AWS NODE SERVER INSTALL SCRIPT\n\n"
+USER_ID=id -u $USER
+printf "\n AWS NODE SERVER INSTALL SCRIPT\n"
+printf "Running as $USER::$USER_ID\n\n"
 
 ## Update base
 
@@ -60,7 +62,7 @@ apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
-if id -u $USER -eq 1000
+if (($USER_ID == 1000))
 then
     # GrantGroup jenkins sudo
     cp .jenkins /etc/sudoers.d/jenkins
@@ -73,7 +75,8 @@ COMMENT="Jenkins TLS enabled"
 LINE="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
 AppendToFile /etc/default/jenkins $LINE $COMMENT
 
-if id -u $USER -eq 1000
+
+if (($USER_ID == 1000))
 then
     /etc/init.d/jenkins start
     sleep 2
