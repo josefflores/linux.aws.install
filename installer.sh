@@ -89,7 +89,7 @@ apt-get -qq install -y nodejs
 
 # NPM
 printf " [INSTALL] NPM (Global) - Express\n"
-npm install express -g
+npm install express -g --silent
 
 # Add environment variables
 COMMENT="AWS Environment variables"
