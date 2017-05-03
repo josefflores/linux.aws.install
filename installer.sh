@@ -60,7 +60,7 @@ apt-get -qq update -y
 apt-get -qq install -y jenkins
 
 # Give Jenkins sudo permissions
-GrantGroup jenkins sudo
+#GrantGroup jenkins sudo
 #sudo cp .jenkins /etc/sudoers.d/jenkins
 
 # ADD TLS
