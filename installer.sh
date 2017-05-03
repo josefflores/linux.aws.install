@@ -31,15 +31,13 @@ apt-get -qq install -y jenkins
 
 # ADD TLS
 TEST="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
-
-TARGET=/etc/default/jenkins
-if grep -Fxq "${TEST}" TARGET
+if grep -Fxq "${TEST}" /etc/default/jenkins
 then
     printf " [SKIP]    Jenkins TLS enabled config in place.\n"
 else
     printf " [CONFIG]  Jenkins TLS enabled.\n"
-    echo "# Jenkins TLS enabled" | sudo tee -a TARGET
-    echo "${TEST}" | sudo tee -a TARGET
+    echo "# Jenkins TLS enabled" | sudo tee -a /etc/default/jenkins
+    echo "JAVA_ARGS=\"\${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" | sudo tee -a /etc/default/jenkins
 fi
 
 # NodeJS
@@ -53,14 +51,13 @@ npm install express -g
 
 ## Add environment variables
 TEST=". $HOME/github/linux.aws.install/.aws_metadata.sh"
-TARGET=~/.bashrc
-if grep -Fxq "${TEST}" TARGET
+if grep -Fxq "${TEST}" ~/.bashrc
 then
     printf " [SKIP]    AWS Environment variables previously added.\n"
 else
     printf " [INSTALL] AWS Environment variables\n"
-    echo "# IMPORT AWS VARIABLES" | sudo tee -a TARGET
-    echo "${TEST}" | sudo tee -a TARGET
+    echo "# IMPORT AWS VARIABLES" | sudo tee -a ~/.bashrc
+    echo "${TEST}" | sudo tee -a ~/.bashrc
 fi
 
 printf "\n Done...\n\n"
