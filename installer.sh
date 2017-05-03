@@ -65,15 +65,21 @@ apt-get -qq install -y jenkins
 # sudo chmod 440 /etc/sudoers.d/jenkins
 
 # ADD TLS
-sudo /etc/init.d/jenkins stop
-sleep 2
+if id -u $USER -eq 1000
+then
+    sudo /etc/init.d/jenkins stop
+    sleep 2
+fi
 
 COMMENT="Jenkins TLS enabled"
 LINE="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
 AppendToFile /etc/default/jenkins $LINE $COMMENT
 
-sudo /etc/init.d/jenkins start
-sleep 2
+if id -u $USER -eq 1000
+then
+    sudo /etc/init.d/jenkins start
+    sleep 2
+fi
 
 # NodeJS
 printf " [INSTALL] Node.js 7\n"
