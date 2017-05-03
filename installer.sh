@@ -31,13 +31,13 @@ apt-get -qq install -y jenkins
 
 # ADD TLS
 
-TARGET="/etc/default/jenkins"
+TARGET=/etc/default/jenkins
 
 PROPERTY="-Dmail.smtp.starttls.enable"
 VALUE="true"
 CONFIG="JAVA_ARGS=\"${JAVA_ARGS} ${PROPERTY}=${VALUE}\""
 
-if grep -Fxq CONFIG TARGET
+if grep -Fxq "${CONFIG}" TARGET
 then
     printf " [SKIP]    Jenkins TLS enabled config in place.\n"
 else
