@@ -88,7 +88,10 @@ apt-get -qq install -y nodejs
 
 # NPM
 printf " [INSTALL] NPM (Global) - Express\n"
-npm install express -g --silent
+npm install -g --silent express
+
+printf " [INSTALL] NPM (Global) - nodemon\n"
+npm install -g --silent nodemon
 
 # Add environment variables
 AppendToFile ~/.bashrc \
