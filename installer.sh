@@ -6,8 +6,7 @@
 # $2 The line to add.
 # $3 The comment to display above the line and in script output.
 AppendToFile(){
-    INSTANCE=$(grep -c $3 $1)
-    if ((INSTANCE > 0)); then
+    if [ $(grep -c $3 $1) -gt 0 ]; then
         printf " [SKIP]    $3.\n"
     else
         printf " [APPEND]  $3.\n"
