@@ -6,13 +6,16 @@
 # $2 The line to add.
 # $3 The comment to display above the line and in script output.
 AppendToFile(){
-    if grep -Fxq "$2" $1
+    echo ""
+    echo "${1} ${2} ${3}"
+    echo ""
+    if grep -Fxq "${2}" $1
     then
-        printf " [SKIP]    $3.\n"
+        printf " [SKIP]    ${3}.\n"
     else
-        printf " [APPEND]  $3.\n"
-        echo "# $3" | tee -a $1
-        echo "$2" | tee -a $1
+        printf " [APPEND]  ${3}.\n"
+        echo "# ${3}" | tee -a $1
+        echo "${2}" | tee -a $1
     fi
 }
 
@@ -93,7 +96,8 @@ npm install express -g --silent
 
 # Add environment variables
 COMMENT="AWS Environment variables"
-LINE=". $HOME/github/linux.aws.install/.aws_metadata.sh"
-AppendToFile ~/.bashrc $LINE $COMMENT
+LINE=". /home/ubuntu/github/linux.aws.install/.aws_metadata.sh"
+TARGET="~/.bashrc"
+AppendToFile $TARGET $LINE $COMMENT
 
 printf "\n Done...\n\n"
