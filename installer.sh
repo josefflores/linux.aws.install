@@ -6,7 +6,7 @@
 # $2 The line to add.
 # $3 The comment to display above the line and in script output.
 AppendToFile(){
-     if grep -Fxq $2 $1
+     if grep -c $2 $1
     then
         printf " [SKIP]    $3.\n"
     else
@@ -71,8 +71,9 @@ then
 fi
 
 # ADD TLS
-AppendToFile /etc/default/jenkins "JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" "Jenkins TLS enabled"
-
+AppendToFile /etc/default/jenkins \
+    "JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" \
+    "Jenkins TLS enabled"
 
 if (($USER_ID == 1000))
 then
@@ -90,6 +91,8 @@ printf " [INSTALL] NPM (Global) - Express\n"
 npm install express -g --silent
 
 # Add environment variables
-AppendToFile ~/.bashrc ". /home/ubuntu/github/linux.aws.install/.aws_metadata.sh" "AWS Environment variables"
+AppendToFile ~/.bashrc \
+     ". /home/ubuntu/github/linux.aws.install/.aws_metadata.sh" \
+     "AWS Environment variables"
 
 printf "\n Done...\n\n"
