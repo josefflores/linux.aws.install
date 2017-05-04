@@ -10,19 +10,16 @@ AppendToFile(){
         printf " [SKIP]    $3.\n"
     else
         printf " [APPEND]  $3.\n"
-        echo "" | tee -a $1
-        echo "# ${3}" | tee -a $1
-        echo "${2}" | tee -a $1
+        printf "\n# ${3}\n${2}" | tee -a $1
     fi
 }
 
-# Grants group access to a user
+# Grants sudo group access to a user
 #
 # $1 User.
 # $2 Group name.
 GrantGroup(){
-    if groups $1 | grep -c sudo
-    then
+    if groups $1 | grep -c sudo; then
         printf " [SKIP]    $1 $2.\n"
     else
         printf " [GRANT]   $1 $2.\n"
