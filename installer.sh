@@ -7,13 +7,13 @@
 # $3 The comment to display above the line and in script output.
 AppendToFile(){
     echo ""
-    echo "${1} ${2} ${3}"
+    echo $1 $2 $3
     echo ""
-    if grep -Fxq "${2}" $1
+    if grep -Fxq $2 $1
     then
-        printf " [SKIP]    ${3}.\n"
+        printf " [SKIP]    $3.\n"
     else
-        printf " [APPEND]  ${3}.\n"
+        printf " [APPEND]  $3.\n"
         echo "# ${3}" | tee -a $1
         echo "${2}" | tee -a $1
     fi
@@ -74,9 +74,7 @@ then
 fi
 
 # ADD TLS
-COMMENT="Jenkins TLS enabled"
-LINE="JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\""
-AppendToFile /etc/default/jenkins $LINE $COMMENT
+AppendToFile /etc/default/jenkins "JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" "Jenkins TLS enabled"
 
 
 if (($USER_ID == 1000))
@@ -95,9 +93,6 @@ printf " [INSTALL] NPM (Global) - Express\n"
 npm install express -g --silent
 
 # Add environment variables
-COMMENT="AWS Environment variables"
-LINE=". /home/ubuntu/github/linux.aws.install/.aws_metadata.sh"
-TARGET="~/.bashrc"
-AppendToFile $TARGET $LINE $COMMENT
+AppendToFile ~/.bashrc ". /home/ubuntu/github/linux.aws.install/.aws_metadata.sh" "AWS Environment variables"
 
 printf "\n Done...\n\n"
