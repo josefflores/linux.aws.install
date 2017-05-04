@@ -6,10 +6,7 @@
 # $2 The line to add.
 # $3 The comment to display above the line and in script output.
 AppendToFile(){
-    echo ""
-    echo $1 $2 $3
-    echo ""
-    if grep -Fxq $2 $1
+     if grep -Fxq $2 $1
     then
         printf " [SKIP]    $3.\n"
     else
