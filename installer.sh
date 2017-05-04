@@ -96,3 +96,5 @@ AppendToFile ~/.bashrc \
      "AWS Environment variables"
 
 printf "\n Done...\n\n"
+
+printf "\nPlease run aws configure, then restart the shell.\n\n"
