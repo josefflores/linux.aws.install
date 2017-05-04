@@ -72,7 +72,7 @@ fi
 
 # ADD TLS
 AppendToFile /etc/default/jenkins \
-    "JAVA_ARGS=\"${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" \
+    "JAVA_ARGS=\"\${JAVA_ARGS} -Dmail.smtp.starttls.enable=true\"" \
     "Jenkins TLS enabled"
 
 if (($USER_ID == 1000))
